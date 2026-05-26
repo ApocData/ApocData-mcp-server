@@ -1,6 +1,6 @@
 # tianqi-mcp
 
-天启数据云 MCP Server — 将 `/v1/**` 数据面打包成 17 个 MCP tool（**本期 12 原子**，后续 3 聚合 + 2 场景 by P5-Agent-4），供 Claude Desktop / Cursor / VS Code / Cline 等 MCP 客户端使用，让 AI Agent 直接调用获取 A 股行情/财务/股东/新闻/宏观/因子数据。
+天启云 MCP Server — 将 `/v1/**` 数据面打包成 17 个 MCP tool（**本期 12 原子**，后续 3 聚合 + 2 场景 by P5-Agent-4），供 Claude Desktop / Cursor / VS Code / Cline 等 MCP 客户端使用，让 AI Agent 直接调用获取 A 股行情/财务/股东/新闻/宏观/因子数据。
 
 ## 安装
 
@@ -76,7 +76,7 @@ pnpm build
 
 | 变量 | 必填 | 默认 | 说明 |
 |---|---|---|---|
-| `TQ_API_KEY` | ✅ | — | 从天启数据云运维获取（格式 `tq_<env>_<publicId>_<secret>`） |
+| `TQ_API_KEY` | ✅ | — | 从天启云运维获取（格式 `tq_<env>_<publicId>_<secret>`） |
 | `TQ_API_BASE` | ❌ | `http://localhost:9001` | gateway 地址 |
 
 ## 常见问题
@@ -115,7 +115,7 @@ Claude Desktop / Cursor / VS Code
    tianqi-mcp (本仓)
         │ HTTPS + X-API-Key
         ▼
-   blade-gateway (天启数据云 9001)
+   blade-gateway (天启云 9001)
         │ TdcApiKeyGlobalFilter (鉴权 + 限流 + 审计)
         ▼
    blade-dataplatform
