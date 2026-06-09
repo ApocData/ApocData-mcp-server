@@ -1,34 +1,66 @@
 {
-  "name": "@tianqi/mcp-server",
+  "name": "@apocdata/mcp-server",
   "version": "0.1.0",
-  "private": true,
+  "description": "天启至数 ApocData - MCP Server for A-share market data (47 free, no-auth endpoints)",
+  "license": "Apache-2.0",
   "type": "module",
-  "description": "MCP server for Tianqi Data Cloud (天启数据云) — exposes /v1/** as 12 atomic tools for AI Agents.",
+  "main": "dist/index.js",
   "bin": {
-    "tianqi-mcp": "./dist/index.js"
+    "apocdata-mcp": "dist/index.js"
   },
+  "files": [
+    "dist",
+    "scripts",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc",
-    "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest",
+    "watch": "tsc --watch",
     "start": "node dist/index.js",
-    "dev": "tsx src/index.ts"
+    "dev": "tsc && node dist/index.js",
+    "test:unit": "node scripts/client-unit-test.mjs",
+    "test:contract": "node scripts/contract-test.mjs",
+    "test:errors": "node scripts/error-path-test.mjs",
+    "test:coverage": "node scripts/coverage-test.mjs",
+    "test:e2e": "node scripts/mcp-e2e-test.mjs",
+    "test:integration": "node scripts/integration-test.mjs",
+    "test": "npm run build && npm run test:unit && npm run test:contract && npm run test:errors && npm run test:coverage && npm run test:e2e && npm run test:integration",
+    "test:ci": "npm run build && npm run test:unit && npm run test:integration",
+    "version:patch": "npm version patch -m 'chore(release): :tada: %s'",
+    "version:minor": "npm version minor -m 'chore(release): :tada: %s'",
+    "version:major": "npm version major -m 'chore(release): :tada: %s'",
+    "publish:dry": "npm publish --dry-run --access public",
+    "prepublishOnly": "npm run test:ci"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "a-share",
+    "stock",
+    "tushare",
+    "apocdata",
+    "tianqi"
+  ],
+  "engines": {
+    "node": ">=18"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.0",
-    "axios": "^1.7.0",
-    "lru-cache": "^11.0.0"
+    "@modelcontextprotocol/sdk": "^1.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
-    "tsx": "^4.0.0",
-    "typescript": "^5.4.0",
-    "vitest": "^2.0.0"
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0"
   },
-  "engines": {
-    "node": ">=18.0.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ApocData/ApocData-skill.git",
+    "directory": "mcp-server"
   },
-  "license": "Apache-2.0",
-  "author": "Chill"
+  "homepage": "https://data.tianqis.com",
+  "bugs": {
+    "url": "https://github.com/ApocData/ApocData-skill/issues"
+  }
 }
