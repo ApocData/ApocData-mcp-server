@@ -21,7 +21,7 @@ import { quotesSnapshot } from "./quotes-snapshot.js";
 import { stockBarsDaily } from "./stock-bars-daily.js";
 import { stockFinancials } from "./stock-financials.js";
 import { top10Holders } from "./top10-holders.js";
-import { stockNews } from "./stock-news.js";
+// import { stockNews } from "./stock-news.js"; // 已停用：新闻库无可靠股票代码字段，get_stock_news 按代码搜新闻无效
 import { macroDashboard } from "./macro-dashboard.js";
 import { macroIndicator } from "./macro-indicator.js";
 import { factorRegistry } from "./factor-registry.js";
@@ -40,7 +40,7 @@ export const ATOMIC_TOOLS: ToolDef[] = [
   stockBarsDaily,
   stockFinancials,
   top10Holders,
-  stockNews,
+  // stockNews, // 已停用：新闻库无可靠股票代码字段，按股票代码搜新闻无效
   macroDashboard,
   macroIndicator,
   factorRegistry,

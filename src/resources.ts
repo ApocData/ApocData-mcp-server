@@ -20,9 +20,9 @@ const GUIDE = `# ApocData MCP - 接入与工具速查
 
 ## 是什么
 
-天启至数 ApocData 是 A 股免鉴权数据 API（\`https://data.tianqis.com/api/blade-dataplatform/open/data/*\`），本 MCP server 把 47 个端点包装成可直接调用的工具。
+天启至数 ApocData 是 A 股免鉴权数据 API（\`https://data.tianqis.com/api/blade-dataplatform/open/data/*\`），本 MCP server 把 46 个端点包装成可直接调用的工具。
 
-## 工具分组（47 个）
+## 工具分组（46 个）
 
 | 类别 | 工具 |
 | --- | --- |
@@ -30,7 +30,7 @@ const GUIDE = `# ApocData MCP - 接入与工具速查
 | **B 财务与股东** | financial / express / dividend / holders / holder-number / share-float / repurchase / block-trade |
 | **C 资金流向** | moneyflow / hsgt / hk-hold / hk-daily / margin / dragon-tiger / hot-money / hot-money-detail |
 | **D 涨跌停与板块** | limit-list / limit-step / sector-flow / cyq-perf |
-| **E 公告/新闻/调研** | announcements / news / survey |
+| **E 公告/调研** | announcements / survey |
 | **F 板块成分** | concepts / concept-stocks / ths-boards / ths-board-stocks |
 | **G 可转债** | convertible-bonds / cb-price-chg |
 | **H 因子** | factors / tech-factor |
@@ -42,7 +42,7 @@ const GUIDE = `# ApocData MCP - 接入与工具速查
 
 - **symbol 格式**：A 股传 6 位代码（如 \`600519\`），后端自动补全交易所后缀；港股/指数/可转债传完整 \`tsCode\`（如 \`00700.HK\` / \`000300.SH\` / \`127026.SZ\`）
 - **延迟**：免鉴权接口走 FREE 套餐，盘中实时数据有 15min 延迟
-- **数据稀疏≠错误**：news/express/hk-daily/survey/share-float 返回空数组属正常，不代表接口故障
+- **数据稀疏≠错误**：express/hk-daily/survey/share-float 返回空数组属正常，不代表接口故障
 - **错误协议**：业务错误用 HTTP 200 + \`success=false\` + \`msg\`，不走 HTTP 4xx
 - **格式优化**：返回数组的工具支持 \`format=compact\`（columns+rows 列式，省 60-70% token）；**所有工具都支持 \`fields\` 字段白名单**（在 query 里加 fields=col1,col2 即可，工具 schema 只在 financial/announcements 显式列出但全局生效）
 
@@ -91,7 +91,6 @@ const SCENARIOS = `# 常见场景到工具的映射
 | 北向持仓 | hk-hold(symbol) |
 | 筹码分布 | cyq-perf(symbol) |
 | 公司公告（正式披露） | announcements(symbol, fields=title,summary,ann_date) |
-| 媒体新闻（数据稀疏） | news(symbol, hours=72) |
 | 机构调研 | survey(symbol) |
 | 分红送配 | dividend(symbol) |
 | 限售解禁 | share-float(symbol) |
@@ -151,7 +150,6 @@ const SCENARIOS = `# 常见场景到工具的映射
 
 - ❌ 用 quote + stock + holders + ... 串调 8 个接口 → ✅ 一次 profile-full
 - ❌ 用 stock + st 拼出"ST 状态" → ✅ 直接 st(symbol)
-- ❌ 用 announcements 查媒体新闻 → ✅ news(symbol, hours)；反之亦然
 - ❌ 拿到 array[0] 就重试 → ✅ 检查 meta 里 X-Tdc-Sparse 注释，数据稀疏属正常
 `;
 
@@ -187,7 +185,6 @@ const LIMITS = `# 工具参数 limit 速查表（超出会静默截断）
 | sector-flow | 20 | 50 |
 | cyq-perf | 5 | 20 |
 | announcements | 5 | 5 |
-| news | 10 | 10（hours 默认 72，最大 168） |
 | survey | 5 | 10 |
 | concepts | 30 | 50 |
 | concept-stocks | 50 | 50 |
@@ -201,7 +198,7 @@ const LIMITS = `# 工具参数 limit 速查表（超出会静默截断）
 
 ## 字段裁剪 fields（全局支持）
 
-**所有 47 个工具都支持** \`?fields=col1,col2,...\`，响应只保留指定字段。请求列序保持。响应头会带 \`X-Tdc-Fields-Applied\`。
+**所有 46 个工具都支持** \`?fields=col1,col2,...\`，响应只保留指定字段。请求列序保持。响应头会带 \`X-Tdc-Fields-Applied\`。
 
 最受益的几个（默认字段多、token 贵）：
 
@@ -223,7 +220,7 @@ export const ALL_RESOURCES: ResourceDef[] = [
   {
     uri: 'apocdata://guide',
     name: 'ApocData 接入指南',
-    description: '全局能力速览 + 47 工具分组 + 关键约定（symbol 格式 / 延迟 / 错误协议 / 元信息头）',
+    description: '全局能力速览 + 46 工具分组 + 关键约定（symbol 格式 / 延迟 / 错误协议 / 元信息头）',
     mimeType: 'text/markdown',
     text: GUIDE,
   },

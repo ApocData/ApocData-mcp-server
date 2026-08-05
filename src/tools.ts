@@ -80,7 +80,7 @@ const TOOLS_A: ToolDef[] = [
     path: 'stocks',
     description: 'A4 股票列表搜索。按名称/代码关键词 q 模糊匹配，可过滤行业/市场，支持游标翻页',
     params: {
-      q: { type: 'string', description: '名称或代码关键词，模糊匹配' },
+      q: { type: 'string', description: '名称或代码关键词，模糊匹配。含中文/特殊字符时必须 URL-encode（本 MCP server 已自动编码；直连 REST API 需用 curl -G --data-url-encode "q=..."）' },
       industry: { type: 'string', description: '行业过滤，如 "银行" "白酒"' },
       market: { type: 'string', description: '市场过滤，如 "主板" "科创板" "创业板" "北交所"' },
       limit: limitParam(20, 50),
@@ -364,7 +364,7 @@ const TOOLS_E: ToolDef[] = [
   {
     name: 'announcements',
     path: 'announcements',
-    description: 'E1 公司**正式公告**（交易所披露）。支持区间/类型/关键字过滤：startDate+endDate（YYYYMMDD 区间）、category（精确类型）、q（标题模糊）。**列表浏览**用 includeContent=false 跳过正文省 80% token；**全文阅读**用默认 includeContent=true + fields 精挑。最权威但更新慢。要媒体报道用 news',
+    description: 'E1 公司**正式公告**（交易所披露）。支持区间/类型/关键字过滤：startDate+endDate（YYYYMMDD 区间）、category（精确类型）、q（标题模糊）。**列表浏览**用 includeContent=false 跳过正文省 80% token；**全文阅读**用默认 includeContent=true + fields 精挑。最权威但更新慢。',
     params: {
       symbol: SYMBOL_6,
       startDate: { type: 'string', description: '起始日 YYYYMMDD（按 ann_date 过滤），可选' },
@@ -378,36 +378,6 @@ const TOOLS_E: ToolDef[] = [
         default: true,
       },
       fields: { type: 'string', description: '字段白名单，逗号分隔，如 title,summary,ann_date' },
-      format: FORMAT_COMPACT,
-    },
-    required: ['symbol'],
-  },
-  {
-    name: 'news',
-    path: 'news',
-    description: 'E2 **媒体新闻**。**时间过滤**：startDate+endDate（YYYYMMDD 区间）优先，否则用 hours 回溯（默认 72h，最大 168h）。**其它过滤**：category 类型 / q 标题模糊 / sentiment / importance。数据稀疏，冷门股可能数日 0 条。要交易所正式披露用 announcements',
-    params: {
-      symbol: SYMBOL_6,
-      hours: {
-        type: 'integer',
-        description: '回看小时数（仅在不传 startDate/endDate 时生效）。默认 72，最大 168',
-        default: 72,
-      },
-      startDate: { type: 'string', description: '起始日 YYYYMMDD（按 publish_time 过滤），与 hours 二选一' },
-      endDate: { type: 'string', description: '结束日 YYYYMMDD' },
-      category: { type: 'string', description: '新闻类型精确匹配' },
-      q: { type: 'string', description: '标题关键字模糊搜索' },
-      sentiment: {
-        type: 'string',
-        description: 'LLM 情绪标签精确过滤',
-        enum: ['bullish', 'neutral', 'bearish'],
-      },
-      importance: {
-        type: 'string',
-        description: '重要性精确过滤',
-        enum: ['high', 'medium', 'low'],
-      },
-      limit: limitParam(10, 30),
       format: FORMAT_COMPACT,
     },
     required: ['symbol'],

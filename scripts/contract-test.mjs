@@ -50,7 +50,6 @@ const TEST_INPUTS = {
   'cyq-perf': { symbol: '600519', limit: 3 },
 
   announcements: { symbol: '600519', limit: 1, fields: 'title,ann_date' },
-  news: { symbol: '600519', limit: 3 },
   survey: { symbol: '600519', limit: 3 },
 
   concepts: { limit: 3 },

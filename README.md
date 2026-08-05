@@ -114,7 +114,7 @@ apocdata-mcp --help       # 显示完整用法
 | **B. 财务与股东（8）** | `financial` `express` `dividend` `holders` `holder-number` `share-float` `repurchase` `block-trade` |
 | **C. 资金流向（8）** | `moneyflow` `hsgt` `hk-hold` `hk-daily` `margin` `dragon-tiger` `hot-money` `hot-money-detail` |
 | **D. 涨跌停与板块（4）** | `limit-list` `limit-step` `sector-flow` `cyq-perf` |
-| **E. 公告/新闻/调研（3）** | `announcements` `news` `survey` |
+| **E. 公告/调研（2）** | `announcements` `survey` |
 | **F. 板块成分（4）** | `concepts` `concept-stocks` `ths-boards` `ths-board-stocks` |
 | **G. 可转债（2）** | `convertible-bonds` `cb-price-chg` |
 | **H. 因子（2）** | `factors` `tech-factor` |
