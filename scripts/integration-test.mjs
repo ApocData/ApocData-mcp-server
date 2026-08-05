@@ -217,7 +217,8 @@ class McpHarness {
   await harness.init();
   // 验证 tools/list 工作
   const list = await harness.request('tools/list', {});
-  check('启动后 tools/list 正常', list.result?.tools?.length === 47);
+  const expectedToolCount = Number(process.env.APOCDATA_EXPECTED_TOOL_COUNT ?? 46);
+  check('启动后 tools/list 正常', list.result?.tools?.length === expectedToolCount, `expected=${expectedToolCount} actual=${list.result?.tools?.length}`);
 
   const sigStart = Date.now();
   harness.proc.kill('SIGTERM');

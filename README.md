@@ -1,11 +1,11 @@
 # @apocdata/mcp-server
 
-天启至数 **ApocData** 的 MCP（Model Context Protocol）Server。把 47 个免鉴权 A 股数据接口包装成 MCP tools，可在 Claude Desktop / Cursor / Cline / Continue 等任意 MCP client 中直接调用。
+天启至数 **ApocData** 的 MCP（Model Context Protocol）Server。把 46 个免鉴权 A 股数据接口包装成 MCP tools，可在 Claude Desktop / Cursor / Cline / Continue 等任意 MCP client 中直接调用。
 
 - 数据源：`https://data.tianqis.com/api/blade-dataplatform/open/data/*`
 - 无需 API Key，无需注册（网关已配置 `/open/**` 免鉴权）
 - 自动透传 `X-Tdc-*` 元信息头（限流剩余/截断标志/错误码/缓存策略）
-- 47 工具覆盖：行情、估值、财务、股东、资金流、涨跌停、板块、公告、宏观、因子、综合画像
+- 46 工具覆盖：行情、估值、财务、股东、资金流、涨跌停、板块、公告、宏观、因子、综合画像
 
 ---
 
@@ -106,7 +106,7 @@ apocdata-mcp --help       # 显示完整用法
 
 ---
 
-## 工具清单（47 个）
+## 工具清单（46 个）
 
 | 类别 | 工具 |
 | --- | --- |
@@ -130,7 +130,7 @@ apocdata-mcp --help       # 显示完整用法
 
 | URI | 内容 |
 | --- | --- |
-| `apocdata://guide` | 全局接入指南：47 工具分组、symbol 格式、延迟/限流/错误协议、元信息头说明 |
+| `apocdata://guide` | 全局接入指南：46 工具分组、symbol 格式、延迟/限流/错误协议、元信息头说明 |
 | `apocdata://scenarios` | 场景速查：常见用户意图到工具组合的映射 + 反模式（避免串调 8 个接口） |
 | `apocdata://limits` | limit/fields/compact 速查表：每个工具的默认值/上限/字段裁剪支持情况 |
 
@@ -182,7 +182,7 @@ npm start
 src/
   index.ts     # MCP server 入口，stdio transport
   client.ts    # HTTP client，BASE_URL 调用 + meta 头提取
-  tools.ts     # 47 个工具的配置表（声明式）
+  tools.ts     # 46 个工具的配置表（声明式）
 ```
 
 要加一个新接口：在 `tools.ts` 对应分组里加一条 `ToolDef`，重新 build 即可，无需改其它代码。
@@ -190,9 +190,9 @@ src/
 ## 测试
 
 ```bash
-npm test                 # build + 6 类测试全跑（约 45s）
+npm test                 # build + 6 类测试全跑（需在 tianqi-mcp 目录执行）
 npm run test:unit        # client 单测：超时/重试/URL 构造，不打外网
-npm run test:contract    # 47 工具逐个真实 HTTP 调用（happy path）
+npm run test:contract    # 46 工具逐个真实 HTTP 调用（happy path）
 npm run test:errors      # 错误路径：非法参数 / 不存在 symbol / 日期格式
 npm run test:coverage    # 限流头/截断头/所有枚举值遍历
 npm run test:e2e         # MCP 协议层：stdio JSON-RPC + isError + compact
@@ -204,10 +204,10 @@ npm run test:integration # 集成：mock HTTP + 子进程 server，验证 retrie
 | 脚本 | 验证 |
 | --- | --- |
 | `client-unit-test.mjs` | client 4xx 不重试、5xx 重试到成功/用尽、超时归一化、meta 头提取、URL 构造（mock fetch） |
-| `contract-test.mjs` | 所有 47 端点参数名/必填和后端 `@RequestParam` 一致；happy path 全部 200 |
+| `contract-test.mjs` | 所有 46 端点参数名/必填和后端 `@RequestParam` 一致；happy path 全部 200 |
 | `error-path-test.mjs` | 业务错误用 HTTP 200 + `success=false` 表达；标记 PROD（已部署）/ LAG（源码已写、线上待发版）|
 | `coverage-test.mjs` | 限流头 / 截断头透传；所有 enum 工具（ranking / limit-list / sector-flow / hot-rank / margin / macro）的合法值全部遍历 |
-| `mcp-e2e-test.mjs` | MCP 协议正确：tools/list 47 个、isError 在 HTTP 4xx 和 `success=false` 都正确标记、compact 模式列式输出 |
+| `mcp-e2e-test.mjs` | MCP 协议正确：tools/list 46 个、isError 在 HTTP 4xx 和 `success=false` 都正确标记、compact 模式列式输出 |
 | `integration-test.mjs` | 真实 backoff 耗时验证；真实 timeout 触发；`--version` / `--help` CLI；SIGTERM 空闲即时退出；SIGTERM in-flight 等待完成后退出 |
 
 私有部署：`APOCDATA_BASE_URL=http://your.host/path npm test`
