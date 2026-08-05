@@ -1,7 +1,7 @@
 /**
  * 天启至数 ApocData - MCP 工具配置表
  *
- * 47 个 /open/data/* 端点的元数据声明。
+ * 46 个 /open/data/* 端点的元数据声明。
  * 严格对齐后端 controller @RequestParam 签名（参数名、必填、默认值、上限）。
  *
  * - format=compact 全局 advice 处理，仅对返回 List<Map> 的接口生效，因此只有这类工具暴露 format 参数

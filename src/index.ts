@@ -2,7 +2,7 @@
 /**
  * 天启至数 ApocData - MCP Server
  *
- * stdio transport，47 个 A 股数据工具。
+ * stdio transport，46 个股票数据工具。
  *
  * CLI:
  *   apocdata-mcp                 启动 MCP server
@@ -221,7 +221,7 @@ function handleCliFlags(argv: string[]): void {
     process.stdout.write(
       `apocdata-mcp-server ${PKG_VERSION}\n` +
       `\n` +
-      `天启至数 ApocData - MCP Server，stdio transport，47 个 A 股数据工具。\n` +
+      `天启至数 ApocData - MCP Server，stdio transport，46 个股票数据工具。\n` +
       `\n` +
       `Usage:\n` +
       `  apocdata-mcp                  Start MCP server on stdio\n` +

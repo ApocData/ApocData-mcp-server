@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * 契约测试：对 47 个工具逐个发真实 HTTP 调用。
+ * 契约测试：对全部公开工具逐个发真实 HTTP 调用。
  * 输出表格：tool / HTTP status / API success / data 形状 / 备注
  *
  * 用法：
@@ -113,7 +113,7 @@ for (const tool of ALL_TOOLS) {
     line.http = res.status;
     const errCode = res.headers.get('x-tdc-error-code');
     if (errCode) line.errCode = errCode;
-    const truncated = res.headers.get('x-tdc-truncated');
+    const truncated = res.headers.get('x-tdc-limit-truncated');
     if (truncated === 'true') line.truncated = true;
 
     const text = await res.text();
@@ -163,5 +163,5 @@ for (const r of results) {
 console.log('');
 console.log(`Total ${results.length} tools  │  ✓ ok ${counts.ok}  │  ⚠ apiFail ${counts.apiFail}  │  http4xx ${counts.http4xx}  │  http5xx ${counts.http5xx}  │  err ${counts.err}`);
 
-// 退出码：有任何 http5xx 或 err 算失败；4xx/apiFail 算 warning（可能是测试输入有意触发）
-process.exit(counts.http5xx + counts.err > 0 ? 1 : 0);
+const skipped = results.filter((r) => r.status === 'SKIP').length;
+process.exit(counts.http4xx + counts.http5xx + counts.apiFail + counts.err + skipped > 0 ? 1 : 0);
