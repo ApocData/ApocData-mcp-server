@@ -1,0 +1,10 @@
+{
+  "name": "apocdata",
+  "description": "Zero-auth MCP server for A-share market data. 46 tools covering quotes, financials, capital flows, limit-up/down, sectors, announcements, macro indicators and more.",
+  "mcpServers": {
+    "apocdata": {
+      "command": "npx",
+      "args": ["-y", "@apocdata/mcp-server"]
+    }
+  }
+}
