@@ -1,6 +1,7 @@
 {
   "name": "@apocdata-info/mcp-server",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "mcpName": "io.github.hanjialeGit/mcp-server",
   "description": "天启至数 ApocData - MCP Server for A-share market data (46 free, no-auth endpoints)",
   "license": "Apache-2.0",
   "type": "module",
