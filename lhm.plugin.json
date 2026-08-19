@@ -1,0 +1,13 @@
+{
+  "identifier": "apocdata-apocdata-mcp-server",
+  "name": "ApocData MCP Server",
+  "description": "Zero-auth MCP server for A-share market data. 46 tools covering quotes, financials, capital flows, limit-up/down, sectors, announcements, macro indicators and more.",
+  "version": "0.1.1",
+  "author": "ApocData",
+  "homepage": "https://github.com/ApocData/ApocData-mcp-server",
+  "repository": "https://github.com/ApocData/ApocData-mcp-server",
+  "tags": ["finance", "stock", "china", "a-share", "market-data", "quotes", "financials"],
+  "capabilities": {
+    "tools": true
+  }
+}
