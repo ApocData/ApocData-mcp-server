@@ -34,7 +34,7 @@
   "mcpServers": {
     "apocdata": {
       "command": "npx",
-      "args": ["-y", "@apocdata/mcp-server"]
+      "args": ["-y", "@apocdata-info/mcp-server"]
     }
   }
 }
@@ -43,7 +43,7 @@
 ### 全局安装
 
 ```bash
-npm install -g @apocdata/mcp-server
+npm install -g @apocdata-info/mcp-server
 apocdata-mcp
 ```
 
@@ -108,5 +108,5 @@ apocdata-mcp
 ## 链接
 
 - **GitHub**：https://github.com/ApocData/ApocData-mcp-server
-- **数据源**：https://data.tianqis.com
+- **数据源**：https://www.apocdata.com
 - **官网**：https://www.apocdata.com

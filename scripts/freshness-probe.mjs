@@ -11,7 +11,7 @@
 import { ALL_TOOLS } from '../dist/tools.js';
 
 const BASE = process.env.APOCDATA_BASE_URL
-  ?? 'https://data.tianqis.com/api/blade-dataplatform/open/data';
+  ?? 'https://www.apocdata.com/api/blade-dataplatform/open/data';
 
 const TEST_INPUTS = {
   quote: { symbol: '000001' },

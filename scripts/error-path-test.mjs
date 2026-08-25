@@ -15,7 +15,7 @@
  */
 
 const BASE = process.env.APOCDATA_BASE_URL
-  ?? 'https://data.tianqis.com/api/blade-dataplatform/open/data';
+  ?? 'https://www.apocdata.com/api/blade-dataplatform/open/data';
 
 const CASES = [
   // 线上已部署的错误校验

@@ -10,7 +10,7 @@
  *   apocdata-mcp --help    | -h  打印用法后退出
  *
  * 环境变量：
- *   APOCDATA_BASE_URL    覆盖默认 base URL（默认指向 data.tianqis.com）
+ *   APOCDATA_BASE_URL    覆盖默认 base URL（默认指向 www.apocdata.com）
  *   APOCDATA_DEBUG       设为 "1" 时把每次调用元信息打到 stderr
  *   APOCDATA_TIMEOUT_MS  单次请求超时（默认 30000）
  *   APOCDATA_MAX_RETRIES 5xx/网络错误重试次数（默认 2）
@@ -35,7 +35,7 @@ import { ALL_RESOURCES } from './resources.js';
 import { ALL_TOOLS, type ToolDef } from './tools.js';
 
 const PKG_VERSION = readPackageVersion();
-const DEFAULT_BASE_URL = 'https://data.tianqis.com/api/blade-dataplatform/open/data';
+const DEFAULT_BASE_URL = 'https://www.apocdata.com/api/blade-dataplatform/open/data';
 const SHUTDOWN_GRACE_MS = 5_000;
 
 // === CLI 处理（必须在创建 transport 之前，否则会污染 stdout） ===

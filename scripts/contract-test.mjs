@@ -11,7 +11,7 @@
 import { ALL_TOOLS } from '../dist/tools.js';
 
 const BASE = process.env.APOCDATA_BASE_URL
-  ?? 'https://data.tianqis.com/api/blade-dataplatform/open/data';
+  ?? 'https://www.apocdata.com/api/blade-dataplatform/open/data';
 
 // 每个 tool 的测试入参。stable A 股：000001 平安银行 / 600519 茅台
 const TEST_INPUTS = {

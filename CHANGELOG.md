@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to `@apocdata/mcp-server` are documented here.
+All notable changes to `@apocdata-info/mcp-server` are documented here.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
@@ -39,7 +39,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ### Known limitations
 
-后端服务 `data.tianqis.com` 当前部署版本滞后于源码，以下能力 MCP 客户端代码已就绪，需后端 redeploy 才会生效：
+后端服务 `www.apocdata.com` 当前部署版本滞后于源码，以下能力 MCP 客户端代码已就绪，需后端 redeploy 才会生效：
 
 - `profile/full` 与 `factor-categories` 端点（404）
 - 多接口非法 enum 校验（`ranking` direction / `macro` type / `sector-flow` type / `hot-rank` type / `margin` exchange / `macro-latest|definition` type）

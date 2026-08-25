@@ -20,7 +20,7 @@ const GUIDE = `# ApocData MCP - 接入与工具速查
 
 ## 是什么
 
-天启至数 ApocData 是 A 股免鉴权数据 API（\`https://data.tianqis.com/api/blade-dataplatform/open/data/*\`），本 MCP server 把 46 个端点包装成可直接调用的工具。
+天启至数 ApocData 是 A 股免鉴权数据 API（\`https://www.apocdata.com/api/blade-dataplatform/open/data/*\`），本 MCP server 把 46 个端点包装成可直接调用的工具。
 
 ## 工具分组（46 个）
 

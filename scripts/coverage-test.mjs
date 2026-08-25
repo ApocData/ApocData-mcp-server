@@ -9,7 +9,7 @@
  */
 
 const BASE = process.env.APOCDATA_BASE_URL
-  ?? 'https://data.tianqis.com/api/blade-dataplatform/open/data';
+  ?? 'https://www.apocdata.com/api/blade-dataplatform/open/data';
 
 const checks = [];
 function check(kind, name, cond, detail = '') {
