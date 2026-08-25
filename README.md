@@ -1,8 +1,8 @@
-# @apocdata/mcp-server
+# @apocdata-info/mcp-server
 
 天启至数 **ApocData** 的 MCP（Model Context Protocol）Server。把 46 个免鉴权 A 股数据接口包装成 MCP tools，可在 Claude Desktop / Cursor / Cline / Continue 等任意 MCP client 中直接调用。
 
-- 数据源：`https://data.tianqis.com/api/blade-dataplatform/open/data/*`
+- 数据源：`https://www.apocdata.com/api/blade-dataplatform/open/data/*`
 - 无需 API Key，无需注册（网关已配置 `/open/**` 免鉴权）
 - 自动透传 `X-Tdc-*` 元信息头（限流剩余/截断标志/错误码/缓存策略）
 - 46 工具覆盖：行情、估值、财务、股东、资金流、涨跌停、板块、公告、宏观、因子、综合画像
@@ -13,12 +13,12 @@
 
 ### 方式 A：npx（推荐，零安装）
 
-直接在 client 配置里写 `npx -y @apocdata/mcp-server`，无需手动 install。
+直接在 client 配置里写 `npx -y @apocdata-info/mcp-server`，无需手动 install。
 
 ### 方式 B：全局安装
 
 ```bash
-npm install -g @apocdata/mcp-server
+npm install -g @apocdata-info/mcp-server
 apocdata-mcp   # 可执行命令
 ```
 
@@ -35,7 +35,7 @@ apocdata-mcp   # 可执行命令
   "mcpServers": {
     "apocdata": {
       "command": "npx",
-      "args": ["-y", "@apocdata/mcp-server"]
+      "args": ["-y", "@apocdata-info/mcp-server"]
     }
   }
 }
@@ -50,7 +50,7 @@ apocdata-mcp   # 可执行命令
   "mcpServers": {
     "apocdata": {
       "command": "npx",
-      "args": ["-y", "@apocdata/mcp-server"]
+      "args": ["-y", "@apocdata-info/mcp-server"]
     }
   }
 }
@@ -58,7 +58,7 @@ apocdata-mcp   # 可执行命令
 
 ### Cline / Continue / 其它 stdio MCP client
 
-同上，传 `command=npx, args=["-y","@apocdata/mcp-server"]` 即可。
+同上，传 `command=npx, args=["-y","@apocdata-info/mcp-server"]` 即可。
 
 ### CLI flags
 
@@ -80,7 +80,7 @@ apocdata-mcp --help       # 显示完整用法
   "mcpServers": {
     "apocdata": {
       "command": "npx",
-      "args": ["-y", "@apocdata/mcp-server"],
+      "args": ["-y", "@apocdata-info/mcp-server"],
       "env": { "APOCDATA_DEBUG": "1" }
     }
   }
@@ -214,7 +214,7 @@ npm run test:integration # 集成：mock HTTP + 子进程 server，验证 retrie
 
 ### 已知 LAG（线上待发版）
 
-以下能力源码已实现（路线图 §2.1 / §5.1 / §5.3），但 `data.tianqis.com` 当前部署的版本尚未生效。后端 redeploy 后无需改 MCP server，行为自动恢复：
+以下能力源码已实现（路线图 §2.1 / §5.1 / §5.3），但 `www.apocdata.com` 当前部署的版本尚未生效。后端 redeploy 后无需改 MCP server，行为自动恢复：
 
 - `ranking` / `macro` / `macro/latest` / `macro/definition` / `sector-flow` / `hot-rank` / `margin` 的非法 enum 校验
 - `X-Tdc-Error-Code` 响应头
