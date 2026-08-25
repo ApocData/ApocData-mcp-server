@@ -50,7 +50,7 @@ export async function callDataPlane<T>(
   client: AxiosInstance,
   path: string,
   params?: Record<string, unknown>
-): Promise<{ data?: T; meta?: TdcResponse<T>["meta"]; error?: { code: string; message: string } }> {
+): Promise<{ data?: T; meta?: TdcResponse<T>["meta"]; pagination?: TdcResponse<T>["pagination"]; error?: { code: string; message: string } }> {
   try {
     const res = await client.get<TdcResponse<T>>(path, { params });
     if (res.status >= 200 && res.status < 300) {
@@ -58,7 +58,7 @@ export async function callDataPlane<T>(
       if (body.error) {
         return { error: translateError({ backendCode: body.error.code, backendMessage: body.error.message }) };
       }
-      return { data: body.data, meta: body.meta };
+      return { data: body.data, meta: body.meta, pagination: body.pagination };
     }
     const body = res.data;
     return {

@@ -25,17 +25,39 @@ export const stockList: ToolDef = {
     type: "object",
     properties: {
       current: { type: "integer", description: "页码,从 1 开始", default: 1 },
-      size: { type: "integer", description: "每页条数,默认 100,最大 500", default: 100 },
+      size: { type: "integer", description: "每页条数,默认 50,最大 50", default: 50 },
     },
   },
   handler: async (args, client) => {
-    const current = (args.current as number) ?? 1;
-    const size = (args.size as number) ?? 100;
-    const cacheKey = `tool:get_stock_list:${current}:${size}`;
+    const targetPage = Math.max((args.current as number) ?? 1, 1);
+    const size = Math.min(Math.max((args.size as number) ?? 50, 1), 50);
+    const cacheKey = `tool:get_stock_list:${targetPage}:${size}`;
     return withCache(cacheKey, 60 * 60 * 1000, async () => {
-      const r = await callDataPlane(client, "/v1/stocks", { current, size });
-      if (r.error) return { error: true, ...r.error };
-      return { data: r.data, meta: r.meta };
+      // I-041 fix: API 使用 cursor 分页(symbol 排序),需逐页翻到目标页
+      let cursor: string | undefined;
+      let data: unknown[] = [];
+      let hasMore = false;
+      let nextCursor: string | undefined;
+
+      for (let p = 1; p <= targetPage; p++) {
+        const params: Record<string, unknown> = { limit: size };
+        if (cursor) params.cursor = cursor;
+        const r = await callDataPlane<unknown[]>(client, "/v1/stocks", params);
+        if (r.error) return { error: true, ...r.error };
+        if (p === targetPage) {
+          data = r.data ?? [];
+          hasMore = !!r.pagination?.hasMore;
+          nextCursor = r.pagination?.nextCursor;
+        } else {
+          // 中间页:提取 nextCursor 继续翻
+          cursor = r.pagination?.nextCursor;
+          if (!cursor || !r.pagination?.hasMore) break;
+        }
+      }
+      return {
+        data,
+        pagination: { hasMore, nextCursor, page: targetPage, size },
+      };
     });
   },
 };
