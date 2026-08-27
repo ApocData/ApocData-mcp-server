@@ -3,15 +3,9 @@
  * 错误路径测试：构造非法参数，验证业务错误的响应契约。
  *
  * 契约：
- * - 业务错误用 HTTP 200 + R.success=false 表达（不走 4xx）
+ * - 非法参数和资源不存在返回 HTTP 400 + R.success=false
  * - R.msg 给出可读错误说明
- * - 计划中 R.code 应该是字符串错误码（INVALID_PARAM_VALUE 等），但当前线上为 HTTP 数值
- *   —— 这是路线图 §5.1 的待发版功能
- *
- * 用例分两类：
- * - PROD: 线上已部署的校验（RESOURCE_NOT_FOUND、日期格式、跨度上限）
- * - LAG: 源码已实现但线上未部署的校验（多接口非法 enum 当前会被静默接受）
- *        LAG 用例只输出"观察到的行为"，不参与 pass/fail 判定
+ * - X-Tdc-Error-Code 提供机器可读错误码
  */
 
 const BASE = process.env.APOCDATA_BASE_URL
@@ -30,14 +24,13 @@ const CASES = [
   { kind: 'PROD', path: 'calendar',      params: { start: '20250101', end: '20260601' },              desc: 'calendar 跨度超 366 天' },
   { kind: 'PROD', path: 'limit-list',    params: { kind: 'X' },                                       desc: 'limit-list kind 必须 U/D/Z' },
 
-  // 源码已写但线上未发版（§2.1）
-  { kind: 'LAG', path: 'ranking',          params: { direction: 'foo' },        desc: 'ranking direction 必须 gain/loss' },
-  { kind: 'LAG', path: 'macro',            params: { type: 'XYZ' },             desc: 'macro type 必须 GDP/CPI/PPI/PMI' },
-  { kind: 'LAG', path: 'macro/latest',     params: { type: 'XYZ' },             desc: 'macro/latest type 限制' },
-  { kind: 'LAG', path: 'macro/definition', params: { type: 'XYZ' },             desc: 'macro/definition type 限制' },
-  { kind: 'LAG', path: 'sector-flow',      params: { type: 'foo' },             desc: 'sector-flow type 必须 industry/concept/region' },
-  { kind: 'LAG', path: 'hot-rank',         params: { type: '欧股市场' },         desc: 'hot-rank type 限制 4 选 1' },
-  { kind: 'LAG', path: 'margin',           params: { exchange: 'NYSE' },        desc: 'margin exchange 必须 SSE/SZSE/BSE' },
+  { kind: 'PROD', path: 'ranking',          params: { direction: 'foo' },        desc: 'ranking direction 必须 gain/loss' },
+  { kind: 'PROD', path: 'macro',            params: { type: 'XYZ' },             desc: 'macro type 必须 GDP/CPI/PPI/PMI' },
+  { kind: 'PROD', path: 'macro/latest',     params: { type: 'XYZ' },             desc: 'macro/latest type 限制' },
+  { kind: 'PROD', path: 'macro/definition', params: { type: 'XYZ' },             desc: 'macro/definition type 限制' },
+  { kind: 'PROD', path: 'sector-flow',      params: { type: 'foo' },             desc: 'sector-flow type 必须 industry/concept/region' },
+  { kind: 'PROD', path: 'hot-rank',         params: { type: '欧股市场' },         desc: 'hot-rank type 仅支持 A股市场' },
+  { kind: 'PROD', path: 'margin',           params: { exchange: 'NYSE' },        desc: 'margin exchange 必须 SSE/SZSE/BSE' },
 ];
 
 function buildUrl(path, params) {
@@ -74,8 +67,7 @@ for (const c of CASES) {
     line.http = 'ERR';
     line.msg = err.message;
   }
-  // 判定：PROD 必须 success=false；LAG 只观察
-  line.pass = line.kind === 'LAG' ? null : line.success === false;
+  line.pass = line.http === 400 && line.success === false && line.errHeader.length > 0;
   results.push(line);
 }
 
@@ -95,16 +87,12 @@ const pad = (s, w) => String(s ?? '').slice(0, w).padEnd(w);
 console.log(headers.map(h => pad(h, colWidth[h])).join(' │ '));
 console.log(headers.map(h => '─'.repeat(colWidth[h])).join('─┼─'));
 for (const r of results) {
-  const verdict = r.pass === null ? '— LAG' : (r.pass ? '✓ pass' : '✗ FAIL');
+  const verdict = r.pass ? '✓ pass' : '✗ FAIL';
   console.log(headers.map(h => pad(h === 'verdict' ? verdict : h === 'errHdr' ? r.errHeader : r[h], colWidth[h])).join(' │ '));
 }
 
 const prod = results.filter(r => r.kind === 'PROD');
 const prodPass = prod.filter(r => r.pass).length;
-const lag = results.filter(r => r.kind === 'LAG');
-const lagBehavior = lag.filter(r => r.success === false).length;
-
 console.log('');
 console.log(`PROD: ${prodPass}/${prod.length} pass`);
-console.log(`LAG : ${lagBehavior}/${lag.length} 当前线上已校验（其余仍待发版）`);
 process.exit(prodPass === prod.length ? 0 : 1);

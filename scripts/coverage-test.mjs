@@ -87,9 +87,6 @@ const ENUM_CASES = [
   { path: 'sector-flow', params: { type: 'region', limit: 1 }, label: 'sector-flow type=region' },
   // hot-rank type
   { path: 'hot-rank', params: { type: 'A股市场', limit: 1 }, label: 'hot-rank type=A股市场' },
-  { path: 'hot-rank', params: { type: 'ETF基金', limit: 1 }, label: 'hot-rank type=ETF基金' },
-  { path: 'hot-rank', params: { type: '港股市场', limit: 1 }, label: 'hot-rank type=港股市场' },
-  { path: 'hot-rank', params: { type: '美股市场', limit: 1 }, label: 'hot-rank type=美股市场' },
   // margin exchange
   { path: 'margin', params: { exchange: 'SSE', limit: 1 }, label: 'margin exchange=SSE' },
   { path: 'margin', params: { exchange: 'SZSE', limit: 1 }, label: 'margin exchange=SZSE' },

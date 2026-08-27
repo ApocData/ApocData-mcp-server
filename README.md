@@ -205,21 +205,21 @@ npm run test:integration # 集成：mock HTTP + 子进程 server，验证 retrie
 | --- | --- |
 | `client-unit-test.mjs` | client 4xx 不重试、5xx 重试到成功/用尽、超时归一化、meta 头提取、URL 构造（mock fetch） |
 | `contract-test.mjs` | 所有 46 端点参数名/必填和后端 `@RequestParam` 一致；happy path 全部 200 |
-| `error-path-test.mjs` | 业务错误用 HTTP 200 + `success=false` 表达；标记 PROD（已部署）/ LAG（源码已写、线上待发版）|
+| `error-path-test.mjs` | 非法参数/资源不存在返回 HTTP 400 + `success=false` + `X-Tdc-Error-Code` |
 | `coverage-test.mjs` | 限流头 / 截断头透传；所有 enum 工具（ranking / limit-list / sector-flow / hot-rank / margin / macro）的合法值全部遍历 |
 | `mcp-e2e-test.mjs` | MCP 协议正确：tools/list 46 个、isError 在 HTTP 4xx 和 `success=false` 都正确标记、compact 模式列式输出 |
 | `integration-test.mjs` | 真实 backoff 耗时验证；真实 timeout 触发；`--version` / `--help` CLI；SIGTERM 空闲即时退出；SIGTERM in-flight 等待完成后退出 |
 
 私有部署：`APOCDATA_BASE_URL=http://your.host/path npm test`
 
-### 已知 LAG（线上待发版）
+### 生产契约基线
 
-以下能力源码已实现（路线图 §2.1 / §5.1 / §5.3），但 `www.apocdata.com` 当前部署的版本尚未生效。后端 redeploy 后无需改 MCP server，行为自动恢复：
+当前 `www.apocdata.com` 已提供并由测试套件持续验证：
 
 - `ranking` / `macro` / `macro/latest` / `macro/definition` / `sector-flow` / `hot-rank` / `margin` 的非法 enum 校验
 - `X-Tdc-Error-Code` 响应头
 - `X-Tdc-RateLimit-Remaining` 响应头（限流剩余配额）
-- `X-Tdc-Truncated` 响应头（limit 超上限通知；注意 controller 内的 `safeLimit` 截断本身已生效，只是没有头通知）
+- `X-Tdc-Truncated` 响应头（limit 超上限通知）
 - `format=compact` 列式输出
 - `/profile/full` 和 `/factor-categories` 两个端点本身
 

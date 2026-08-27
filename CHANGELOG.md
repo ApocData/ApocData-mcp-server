@@ -4,6 +4,13 @@ All notable changes to `@apocdata-info/mcp-server` are documented here.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.4] - 2026-08-27
+
+### Fixed
+
+- `get_stock_list` now follows the backend cursor pagination contract instead of sending ignored page-number parameters.
+- Response pagination metadata is preserved by the transport layer.
+
 ## [Unreleased]
 
 ### Added
@@ -37,14 +44,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 - CLI：`--version` / `--help`，环境变量 `APOCDATA_BASE_URL` / `APOCDATA_DEBUG` / `APOCDATA_TIMEOUT_MS` / `APOCDATA_MAX_RETRIES`
 - 测试套件 6 套：unit / contract / errors / coverage / e2e / integration，总计 125 PROD case
 
-### Known limitations
+### Known limitations at release time
 
-后端服务 `www.apocdata.com` 当前部署版本滞后于源码，以下能力 MCP 客户端代码已就绪，需后端 redeploy 才会生效：
+发布 `0.1.0` 时后端服务版本滞后于源码，以下能力当时尚未生效：
 
 - `profile/full` 与 `factor-categories` 端点（404）
 - 多接口非法 enum 校验（`ranking` direction / `macro` type / `sector-flow` type / `hot-rank` type / `margin` exchange / `macro-latest|definition` type）
 - `X-Tdc-Error-Code` / `X-Tdc-RateLimit-Remaining` / `X-Tdc-Truncated` 响应头
 - `format=compact` 列式输出
 
-[Unreleased]: https://github.com/ApocData/ApocData-skill/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/ApocData/ApocData-skill/releases/tag/v0.1.0
+[Unreleased]: https://github.com/ApocData/ApocData-mcp-server/compare/v0.1.4...HEAD
+[0.1.4]: https://github.com/ApocData/ApocData-mcp-server/compare/v0.1.3...v0.1.4
+[0.1.0]: https://github.com/ApocData/ApocData-mcp-server/releases/tag/v0.1.0

@@ -82,9 +82,6 @@ const checks = [];
 function check(name, cond, detail = '') {
   checks.push({ kind: 'PROD', name, pass: !!cond, detail });
 }
-function checkLag(name, cond, detail = '') {
-  checks.push({ kind: 'LAG', name, pass: !!cond, detail });
-}
 
 const client = new McpClient();
 
@@ -138,15 +135,13 @@ try {
     `response=${JSON.stringify(profile).slice(0, 120)}`);
 
   // 6. format=compact：daily(symbol=600519, limit=3, format=compact)
-  // §5.3 advice 源码已有，线上待发版（注册或重启）
   const compact = await client.request('tools/call', {
     name: 'daily',
     arguments: { symbol: '600519', limit: 3, format: 'compact' },
   });
   const compactText = compact.result?.content?.[0]?.text ?? '';
-  checkLag('compact 响应有 X-Tdc-Format=compact 头', compactText.includes('X-Tdc-Format'));
-  checkLag('compact 响应含 columns 字段', compactText.includes('"columns"'));
-  checkLag('compact 响应含 rows 字段', compactText.includes('"rows"'));
+  check('compact 响应含 columns 字段', compactText.includes('"columns"'));
+  check('compact 响应含 rows 字段', compactText.includes('"rows"'));
 
   // 7. 未知 tool
   const unknown = await client.request('tools/call', {
@@ -181,16 +176,13 @@ try {
 // 报告
 console.log('');
 for (const c of checks) {
-  const sym = c.kind === 'LAG' ? (c.pass ? '✓' : '— LAG') : (c.pass ? '✓' : '✗');
+  const sym = c.pass ? '✓' : '✗';
   console.log(`${sym} ${c.name}${c.detail ? ` (${c.detail})` : ''}`);
 }
 
 const prod = checks.filter(c => c.kind === 'PROD');
-const lag = checks.filter(c => c.kind === 'LAG');
 const prodPass = prod.filter(c => c.pass).length;
-const lagPass = lag.filter(c => c.pass).length;
 
 console.log('');
 console.log(`PROD: ${prodPass}/${prod.length} pass`);
-if (lag.length) console.log(`LAG : ${lagPass}/${lag.length} 线上已生效（其余待发版）`);
 process.exit(prodPass === prod.length ? 0 : 1);

@@ -53,9 +53,9 @@ const TEST_INPUTS = {
   survey: { symbol: '600519', limit: 3 },
 
   concepts: { limit: 3 },
-  'concept-stocks': { themeCode: 'INVALID', limit: 3 },
+  'concept-stocks': { themeCode: '001676.DC', limit: 3 },
   'ths-boards': { limit: 3 },
-  'ths-board-stocks': { tsCode: 'INVALID', limit: 3 },
+  'ths-board-stocks': { tsCode: '700001.TI', limit: 3 },
 
   'convertible-bonds': { limit: 3 },
   'cb-price-chg': { tsCode: '127026.SZ', limit: 3 },

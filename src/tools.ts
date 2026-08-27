@@ -147,7 +147,7 @@ const TOOLS_A: ToolDef[] = [
       type: {
         type: 'string',
         description: '市场类型',
-        enum: ['A股市场', 'ETF基金', '港股市场', '美股市场'],
+        enum: ['A股市场'],
         default: 'A股市场',
       },
       limit: limitParam(30, 50),
