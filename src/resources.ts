@@ -42,7 +42,7 @@ const GUIDE = `# ApocData MCP - 接入与工具速查
 
 - **symbol 格式**：A 股传 6 位代码（如 \`600519\`），后端自动补全交易所后缀；港股/指数/可转债传完整 \`tsCode\`（如 \`00700.HK\` / \`000300.SH\` / \`127026.SZ\`）
 - **延迟**：免鉴权接口走 FREE 套餐，盘中实时数据有 15min 延迟
-- **数据稀疏≠错误**：express/hk-daily/survey/share-float 返回空数组属正常，不代表接口故障
+- **数据稀疏≠错误**：express/survey/share-float 返回空数组属正常；hk-daily 数据源更新不稳定，必须检查 trade_date/updated_at，不要仅按请求成功判断新鲜度
 - **错误协议**：业务错误用 HTTP 200 + \`success=false\` + \`msg\`，不走 HTTP 4xx
 - **格式优化**：返回数组的工具支持 \`format=compact\`（columns+rows 列式，省 60-70% token）；**所有工具都支持 \`fields\` 字段白名单**（在 query 里加 fields=col1,col2 即可，工具 schema 只在 financial/announcements 显式列出但全局生效）
 
@@ -125,7 +125,7 @@ const SCENARIOS = `# 常见场景到工具的映射
 | 用户意图 | 推荐 |
 | --- | --- |
 | 指数日 K（沪深 300 等） | indexes(q) → index-daily(tsCode 如 000300.SH) |
-| 港股日 K | hk-daily(tsCode 如 00700.HK) — 数据稀疏 |
+| 港股日 K | hk-daily(tsCode 如 00700.HK) — 数据源可能滞后，必须核对 trade_date/updated_at |
 | 可转债列表 | convertible-bonds(q\\|stkCode) |
 | 转股价变动 | cb-price-chg(tsCode) |
 
