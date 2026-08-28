@@ -1,17 +1,17 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.apocdata/mcp-server",
+  "name": "io.github.ApocData/mcp-server",
   "description": "天启至数 ApocData - MCP Server for A-share market data (46 free, no-auth endpoints)",
   "repository": {
     "url": "https://github.com/ApocData/ApocData-mcp-server",
     "source": "github"
   },
-  "version": "0.1.4",
+  "version": "0.1.5",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "@apocdata-info/mcp-server",
-      "version": "0.1.4",
+      "version": "0.1.5",
       "transport": {
         "type": "stdio"
       }
