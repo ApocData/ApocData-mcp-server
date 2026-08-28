@@ -253,7 +253,7 @@ const TOOLS_C: ToolDef[] = [
   {
     name: 'hk-daily',
     path: 'hk-daily',
-    description: 'C3b 港股日 K（数据源可能滞后）。tsCode 格式如 00700.HK（腾讯）；必须检查 trade_date/updated_at，热门股也可能空返回',
+    description: 'C3b 港股日 K 已下线，调用将返回 HTTP 410；港股日线数据暂不对外提供',
     params: {
       tsCode: { type: 'string', description: '港股代码带后缀，如 00700.HK / 09988.HK' },
       limit: limitParam(30, 30),
