@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.ApocData/mcp-server",
-  "description": "天启至数 ApocData - MCP Server for A-share market data (46 free, no-auth endpoints)",
+  "description": "天启至数 Apocdata MCP Server — 46 tools, AI-native A-share data (announcements, quotes, financials, capital flows)",
   "repository": {
     "url": "https://github.com/ApocData/ApocData-mcp-server",
     "source": "github"

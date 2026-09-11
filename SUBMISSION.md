@@ -1,10 +1,10 @@
-# ApocData MCP Server
+# Apocdata MCP Server
 
 ## 产品定位
 
-天启至数 ApocData MCP Server 是一个**免鉴权**的 A 股数据 MCP 服务，将 46 个金融数据接口封装为标准 MCP tools，可在 Claude Desktop、Cursor、Cline、Continue 等任意 MCP 客户端中直接调用。
+天启至数 Apocdata MCP Server 是一个 A 股数据 MCP 服务，将 46 个金融数据接口封装为标准 MCP tools，可在 Claude Desktop、Cursor、Cline、Continue 等任意 MCP 客户端中直接调用。
 
-- **零门槛**：无需 API Key，无需注册，开箱即用
+- **零门槛**：免费体验额度，无需注册即可调用；注册解锁更高额度与更多数据能力
 - **全覆盖**：46 个工具涵盖行情、财务、资金流、涨跌停、板块、公告、宏观等
 - **标准协议**：完全遵循 Model Context Protocol，兼容所有 MCP 客户端
 
@@ -100,7 +100,7 @@ apocdata-mcp
 
 ## 技术特性
 
-- **免鉴权**：网关已配置 `/open/**` 免鉴权，无需任何认证
+- **免费体验额度**：无需注册即可调用；注册解锁更高额度与更多数据能力
 - **元信息透传**：自动透传 `X-Tdc-*` 头（限流剩余/截断标志/错误码/缓存策略）
 - **优雅退出**：支持 SIGTERM/SIGINT 信号，等待请求完成后退出
 - **调试模式**：环境变量 `APOCDATA_DEBUG=1` 开启调试日志

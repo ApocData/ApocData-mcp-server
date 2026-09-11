@@ -1,9 +1,9 @@
 # @apocdata-info/mcp-server
 
-天启至数 **ApocData** 的 MCP（Model Context Protocol）Server。把 46 个免鉴权 A 股数据接口包装成 MCP tools，可在 Claude Desktop / Cursor / Cline / Continue 等任意 MCP client 中直接调用。
+天启至数 **Apocdata** 的 MCP（Model Context Protocol）Server。把 46 个 A 股数据接口包装成 MCP tools，可在 Claude Desktop / Cursor / Cline / Continue 等任意 MCP client 中直接调用。
 
 - 数据源：`https://www.apocdata.com/api/blade-dataplatform/open/data/*`
-- 无需 API Key，无需注册（网关已配置 `/open/**` 免鉴权）
+- 免费体验额度：无需注册即可调用；注册解锁更高额度与更多数据能力
 - 自动透传 `X-Tdc-*` 元信息头（限流剩余/截断标志/错误码/缓存策略）
 - 46 工具覆盖：行情、估值、财务、股东、资金流、涨跌停、板块、公告、宏观、因子、综合画像
 
@@ -170,7 +170,7 @@ apocdata-mcp --help       # 显示完整用法
 
 ```bash
 git clone https://github.com/ApocData/ApocData-skill.git
-cd ApocData-skill/mcp-server
+cd Apocdata-skill/mcp-server
 npm install
 npm run build
 npm start
@@ -190,7 +190,7 @@ src/
 ## 测试
 
 ```bash
-npm test                 # build + 6 类测试全跑（需在 tianqi-mcp 目录执行）
+npm test                 # build + 6 类测试全跑（需在 apocdata-mcp 目录执行）
 npm run test:unit        # client 单测：超时/重试/URL 构造，不打外网
 npm run test:contract    # 46 工具逐个真实 HTTP 调用（happy path）
 npm run test:errors      # 错误路径：非法参数 / 不存在 symbol / 日期格式

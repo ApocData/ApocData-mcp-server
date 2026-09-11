@@ -28,7 +28,7 @@ const VERSION = "0.1.0";
 export function createMcpServer(): Server {
   const server = new Server(
     {
-      name: "tianqi-mcp",
+      name: "apocdata-mcp",
       version: VERSION,
     },
     {

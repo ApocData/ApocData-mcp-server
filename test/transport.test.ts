@@ -57,6 +57,6 @@ describe("transport.createTransport", () => {
     const { createTransport } = await import("../src/transport.js");
     const client = createTransport();
     expect(client.defaults.headers["X-API-Key"]).toBe("tq_dev_test_key");
-    expect(String(client.defaults.headers["User-Agent"])).toContain("tianqi-mcp/");
+    expect(String(client.defaults.headers["User-Agent"])).toContain("apocdata-mcp/");
   });
 });

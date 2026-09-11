@@ -36,7 +36,7 @@ export function createTransport(): AxiosInstance {
     baseURL,
     headers: {
       "X-API-Key": apiKey,
-      "User-Agent": `tianqi-mcp/${VERSION}`,
+      "User-Agent": `apocdata-mcp/${VERSION}`,
     },
     timeout: 30_000,
     validateStatus: () => true,

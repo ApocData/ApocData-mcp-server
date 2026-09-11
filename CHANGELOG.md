@@ -37,7 +37,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ### Added
 
-- 初始版本，覆盖 ApocData `/open/data/*` 全部 47 个免鉴权接口
+- 初始版本，覆盖 Apocdata `/open/data/*` 全部 47 个接口
 - MCP server（stdio transport），自动透传 `X-Tdc-*` 元信息头与 `Cache-Control`
 - HTTP client：30s 超时（AbortController）、5xx/网络异常指数 backoff 重试 ×2、4xx 不重试、错误归一化为 `NetworkError`
 - 优雅退出：SIGTERM/SIGINT 等 in-flight 请求结束（最多 5s）后再退
