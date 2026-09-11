@@ -1,6 +1,6 @@
 {
   "name": "@apocdata-info/mcp-server",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "mcpName": "io.github.ApocData/mcp-server",
   "description": "天启至数 Apocdata MCP Server — 46 tools, AI-native A-share data (announcements, quotes, financials, capital flows)",
   "license": "Apache-2.0",

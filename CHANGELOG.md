@@ -4,6 +4,14 @@ All notable changes to `@apocdata-info/mcp-server` are documented here.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.6] - 2026-09-11
+
+### Changed
+
+- 品牌与命名对齐 **Apocdata**：server name / User-Agent / package keyword 由 `tianqi-mcp` 改为 `apocdata-mcp`
+- 文档品牌名 `ApocData` → `Apocdata`；「免鉴权」表述统一为「免费体验额度」
+- 同步 SUBMISSION.md / lhm.plugin.json / server.json
+
 ## [0.1.4] - 2026-08-27
 
 ### Fixed
