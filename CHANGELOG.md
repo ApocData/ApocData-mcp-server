@@ -40,6 +40,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 ### Changed
 
 - e2e 测试用例从 11 涨到 16（加 resources/list、resources/read、未知 URI 错误响应）
+- **品牌名大小写纠正**：文档与清单中的品牌名由 `Apocdata` 改回 **`ApocData`**（大写 A + 大写 D，与官网/商标一致）。涉及 `README.md` / `SUBMISSION.md` / `lhm.plugin.json` / `server.json` / `package.json`。包名、identifier、域名等全小写标识（`apocdata-mcp` / `apocdata-mcp-server`）保持不变
+  - 注：`[0.1.6]` 曾把品牌名定为 `Apocdata`（见下方 0.1.6 条目），此处为对其的反向修正，历史条目原文保留不改
 
 ## [0.1.0] - 2026-05-27
 

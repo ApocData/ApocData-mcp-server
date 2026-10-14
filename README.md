@@ -1,6 +1,6 @@
 # @apocdata-info/mcp-server
 
-天启至数 **Apocdata** 的 MCP（Model Context Protocol）Server。把 46 个 A 股数据接口包装成 MCP tools，可在 Claude Desktop / Cursor / Cline / Continue 等任意 MCP client 中直接调用。
+天启至数 **ApocData** 的 MCP（Model Context Protocol）Server。把 46 个 A 股数据接口包装成 MCP tools，可在 Claude Desktop / Cursor / Cline / Continue 等任意 MCP client 中直接调用。
 
 - 数据源：`https://www.apocdata.com/api/blade-dataplatform/open/data/*`
 - 免费体验额度：无需注册即可调用；注册解锁更高额度与更多数据能力
@@ -170,7 +170,7 @@ apocdata-mcp --help       # 显示完整用法
 
 ```bash
 git clone https://github.com/ApocData/ApocData-skill.git
-cd Apocdata-skill/mcp-server
+cd ApocData-skill/mcp-server
 npm install
 npm run build
 npm start
